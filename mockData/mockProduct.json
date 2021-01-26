@@ -1,0 +1,20 @@
+{
+  "productId": "",
+  "title": "",
+  "shortDescription": "",
+  "price": 0,
+  "imageUrl": "",
+  "secondImageUrl": "",
+  "sizing": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "2XL",
+    "3XL"
+  ],
+  "inStock": true,
+  "isPopular": true,
+  "productDetails": "",
+  "description": ""
+}

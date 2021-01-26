@@ -1,23 +1,26 @@
 {
-  "name": "nodejs-complete-guide",
+  "name": "ecommerce-project",
   "version": "1.0.0",
-  "description": "Complete Node.js Guide",
+  "description": "Ecommerce Project",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "start-server": "node app.js"
+    "start": "npm run tailwind:css && nodemon app.js",
+    "start-server": "node app.js",
+    "tailwind:css": "postcss public/css/tailwind.css -o public/css/style.css"
   },
-  "author": "Maximilian Schwarzmüller",
+  "author": "Ian Petty",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.18.3"
   },
   "dependencies": {
+    "autoprefixer": "^10.2.3",
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
-    "pug": "^2.0.3"
+    "postcss": "^8.2.4",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.0.2"
   }
 }

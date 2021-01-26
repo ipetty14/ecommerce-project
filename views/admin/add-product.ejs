@@ -1,0 +1,82 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="card bg-white max-w-md p-10 md:rounded-lg my-8 mx-auto" method="POST" action="/admin/add-product">
+            <div class="title">
+                <h1 class="font-bold text-center">Add New Product</h1>
+            </div>   
+    
+            <div class="form mt-4">
+                <div class="flex flex-col text-sm mb-3">
+                    <label for="title" class="font-bold mb-2">Title</label>
+                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a title" name="title" id="title"> 
+                </div>
+
+                <div class="flex flex-col text-sm mb-3">
+                    <label for="shortDescription" class="font-bold mb-2">Short Description</label>
+                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a short description" name="shortDescription" id="shortDescription"> 
+                </div>
+
+                <div class="flex flex-col text-sm mb-3">
+                    <label for="price" class="font-bold mb-2">Price</label>
+                    <input class="appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="number" step="any" placeholder="Enter a price" name="price" id="price"> 
+                </div>
+
+                <div class="flex flex-col text-sm mb-3">
+                    <label class="font-bold">Sizing</label>
+                    <label class="mb-2">Please select the available sizing.</label>
+
+                    <div class="flex flex-row items-center">
+                        <input type="checkbox" name="sizing[]" value="S"><label class="ml-2 mr-3" for="sizing[]">S</label> 
+                        <input type="checkbox" name="sizing[]" value="M"><label class="ml-2 mr-3" for="sizing[]">M</label> 
+                        <input type="checkbox" name="sizing[]" value="L"><label class="ml-2 mr-3" for="sizing[]">L</label> 
+                        <input type="checkbox" name="sizing[]" value="XL"><label class="ml-2 mr-3" for="sizing[]">XL</label> 
+                        <input type="checkbox" name="sizing[]" value="2XL"><label class="ml-2 mr-3" for="sizing[]">2XL</label> 
+                        <input type="checkbox" name="sizing[]" value="3XL"><label class="ml-2 mr-3" for="sizing[]">3XL</label> 
+                    </div>
+                </div>
+
+                <div class="flex flex-col text-sm mb-3">
+                    <label for="imageUrl" class="font-bold mb-2">Image URL</label>
+                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a image URL" name="imageUrl" id="imageUrl"> 
+                </div>
+
+                <div class="flex flex-col text-sm mb-3">
+                    <label for="secondaryImageUrl" class="font-bold mb-2">Secondary Image URL</label>
+                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a image URL" name="secondaryImageUrl" id="secondaryImageUrl"> 
+                </div>
+
+                <div class="text-sm flex flex-col mb-3">
+                    <label for="productDetails" class="font-bold">Product Details</label>
+                    <label for="productDetails" class="mb-2">Please end each sentence with a period. These sentences will be used as bullet points.</label>
+                    <textarea class="appearance-none w-full border border-gray-200 p-2 h-40 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg"  placeholder="Enter your product details" name="productDetails" id="productDetails"></textarea>
+                </div>
+
+                <div class="text-sm flex flex-col mb-3">
+                    <label for="description" class="font-bold mb-2">Description</label>
+                    <textarea class="appearance-none w-full border border-gray-200 p-2 h-40 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg"  placeholder="Enter your description" name="description" id="description"></textarea>
+                </div>
+
+                <div class="flex flex-col text-sm mb-3">
+                    <label class="font-bold mb-2">Product Meta</label>
+
+                    <div class="flex flex-row items-center">
+                        <input type="checkbox" name="inStock"><label class="ml-2 mr-3" for="inStock">In Stock</label> 
+                        <input type="checkbox" name="isPopular"><label class="ml-2 mr-3" for="isPopular">Popular Item?</label> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit">
+                <button type="submit" class=" w-full bg-indigo-600 shadow-lg text-white px-4 py-2 hover:bg-indigo-700 mt-8 text-center font-semibold focus:outline-none md:rounded-lg">Submit</button>
+            </div>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>
