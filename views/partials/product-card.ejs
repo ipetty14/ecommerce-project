@@ -1,0 +1,26 @@
+<article class="card product-item justify-between my-4 mx-auto">
+  <header class="card__header">
+    <h1 class="product__title text-indigo-600 font-bold">
+      <%= product.title %>
+    </h1>
+  </header>
+  <div class="card__image">
+    <img src="<%= product.imageUrl %>" alt="<%= product.title %>" />
+  </div>
+  <div class="card__content">
+    <h2 class="product__price">$<%= product.price %></h2>
+    <p class="product__short_description"><%= product.shortDescription %></p>
+  </div>
+  <div class="card__actions flex flex-row justify-center">
+    <a
+      href="/products/<%= product.id %> "
+      class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-indigo-600 outline-none focus:outline-none mr-1 mb-1"
+      type="button"
+      style="transition: all 0.15s ease"
+    >
+      Details
+    </a>
+    <%- include('../partials/add-to-cart-button.ejs', {productId: product.id})
+    %>
+  </div>
+</article>
