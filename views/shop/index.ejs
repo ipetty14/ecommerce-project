@@ -7,6 +7,9 @@
     <%- include('../includes/navigation.ejs') %>
 
     <main>
+        <div class="flex justify-center mt-4 mb-8">
+            <h1 class="font-bold text-3xl text-indigo-500">Popular Products</h1>
+        </div>
         <% if (prods.length > 0) { %>
             <div class="flex flex-row justify-evenly items-stretch flex-wrap">
                 <% for (let product of prods) { %>

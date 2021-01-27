@@ -27,9 +27,12 @@ exports.getProductDetails = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {
   Product.fetchAll((products) => {
+    const popularProducts = products.filter(
+      (product) => product.isPopular === true
+    );
     res.render('shop/index', {
-      prods: products,
-      pageTitle: 'Shop',
+      prods: popularProducts,
+      pageTitle: 'Basketball E-Commerce',
       path: '/',
     });
   });
