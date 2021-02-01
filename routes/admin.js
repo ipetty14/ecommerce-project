@@ -10,7 +10,6 @@ const {
   postEditProduct,
   postDeleteProduct,
 } = require('../controllers/admin');
-const { route } = require('./shop');
 
 const router = express.Router();
 

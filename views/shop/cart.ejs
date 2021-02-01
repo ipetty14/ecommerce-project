@@ -34,13 +34,13 @@
                                 <td>
                                     <a href="/products/<%= product.productData.id %>">
                                     <p class="mb-2 md:ml-4"><%= product.productData.title %></p>
+                                    </a>
                                     <form action="/cart-delete-item" method="POST">
                                         <input type="hidden" name="productId" value="<%= product.productData.id %>">
                                         <button type="submit" class="text-gray-700 md:ml-4">
                                         <small>(Remove item)</small>
                                         </button>
                                     </form>
-                                    </a>
                                 </td>
                                 <td class="justify-center md:justify-end md:flex mt-6">
                                     <div class="w-20 h-10">

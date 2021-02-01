@@ -11,14 +11,14 @@
   </div>
   <div class="card__actions flex flex-row justify-center">
     <a
-      href="/products/<%= product.id %> "
+      href="/products/<%= product._id %> "
       class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-indigo-600 outline-none focus:outline-none mr-1 mb-1"
       type="button"
       style="transition: all 0.15s ease"
     >
       Details
     </a>
-    <%- include('../partials/add-to-cart-button.ejs', {productId: product.id})
+    <%- include('../partials/add-to-cart-button.ejs', {productId: product._id})
     %>
   </div>
 </article>

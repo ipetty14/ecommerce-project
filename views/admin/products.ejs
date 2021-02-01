@@ -23,11 +23,11 @@
                             <p class="product__short_description"><%= product.shortDescription %></p>
                         </div>
                         <div class="card__actions flex flex-row justify-center">
-                            <a href="/admin/products/edit/<%= product.id %> " class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-indigo-600 outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
+                            <a href="/admin/products/edit/<%= product._id %> " class="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-indigo-600 outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
                                 Edit
                               </a>
                               <form method="POST" action="/admin/delete-product">
-                                <input type="hidden" name="productId" value="<%= product.id %>">
+                                <input type="hidden" name="productId" value="<%= product._id %>">
                                   <button type="submit" class="text-red-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-red-600 hover:text-white outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
                                     Delete
                                   </button>

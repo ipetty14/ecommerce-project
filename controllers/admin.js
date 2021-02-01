@@ -1,13 +1,17 @@
 const Product = require('../models/product');
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render('admin/products', {
-      prods: products,
-      pageTitle: 'Admin Products',
-      path: '/admin/products',
+  Product.fetchAll()
+    .then((products) => {
+      res.render('admin/products', {
+        prods: products,
+        pageTitle: 'Admin Products',
+        path: '/admin/products',
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 };
 
 exports.getAddProduct = (req, res, next) => {
@@ -29,6 +33,7 @@ exports.postAddProduct = (req, res, next) => {
   const inStock = req.body.inStock ? true : false;
   const isPopular = req.body.isPopular ? true : false;
   const productDetails = req.body.productDetails;
+  const userId = req.user._id;
 
   const product = new Product(
     null,
@@ -41,26 +46,39 @@ exports.postAddProduct = (req, res, next) => {
     sizing,
     inStock,
     isPopular,
-    productDetails
+    productDetails,
+    userId
   );
-  product.save();
-  res.redirect('/products');
+
+  product
+    .save()
+    .then((result) => {
+      console.log('Product created successfully.');
+      res.redirect('/admin/products');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.getEditProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.findById(id, (product) => {
-    if (!product) {
-      return res.redirect('/products');
-    }
+  Product.findById(id)
+    .then((product) => {
+      if (!product) {
+        return res.redirect('/products');
+      }
 
-    res.render('admin/edit-product', {
-      product: product,
-      editing: true,
-      pageTitle: 'Edit Product',
-      path: `/admin/products/edit/${id}`,
+      res.render('admin/edit-product', {
+        product: product,
+        editing: true,
+        pageTitle: 'Edit Product',
+        path: `/admin/products/edit/${id}`,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 };
 
 exports.postEditProduct = (req, res, next) => {
@@ -75,6 +93,7 @@ exports.postEditProduct = (req, res, next) => {
   const inStock = req.body.inStock ? true : false;
   const isPopular = req.body.isPopular ? true : false;
   const productDetails = req.body.productDetails;
+  const userId = req.user._id;
 
   const product = new Product(
     id,
@@ -87,16 +106,29 @@ exports.postEditProduct = (req, res, next) => {
     sizing,
     inStock,
     isPopular,
-    productDetails
+    productDetails,
+    userId
   );
-  product.save();
-  res.redirect('/admin/products');
+
+  product
+    .save()
+    .then((result) => {
+      console.log('UPDATED PRODUCT!');
+      res.redirect('/admin/products');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.postDeleteProduct = (req, res, next) => {
   const productId = req.body.productId;
 
-  Product.deleteById(productId);
-
-  res.redirect('/admin/products');
+  Product.deleteById(productId)
+    .then(() => {
+      res.redirect('/admin/products');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
