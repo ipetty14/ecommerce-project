@@ -1,9 +1,13 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3000;
+const env = require('dotenv').config();
 
-const { mongoConnect } = require('./util/database');
+const USER_ID = env.parsed.USER_ID;
+const MONGODB_URI = env.parsed.MONGODB_URI;
+
 const User = require('./models/user');
 
 const app = express();
@@ -19,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById('60177d360013abb50047d841')
+  User.findById(USER_ID)
     .then((user) => {
       req.user = user;
       next();
@@ -34,6 +38,24 @@ app.use(shopRoutes);
 
 app.use(get404);
 
-mongoConnect(() => {
-  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-});
+mongoose
+  .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then((result) => {
+    User.findOne().then((user) => {
+      if (!user) {
+        const user = new User({
+          username: 'ipetty',
+          email: 'ipetty@icloud.com',
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
+
+    app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
