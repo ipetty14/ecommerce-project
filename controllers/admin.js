@@ -1,7 +1,8 @@
 const Product = require('../models/product');
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
+  Product.find()
+    .select('title price shortDescription imageUrl')
     .then((products) => {
       res.render('admin/products', {
         prods: products,
@@ -28,27 +29,20 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
   const shortDescription = req.body.shortDescription;
-  const secondImageUrl = req.body.secondImageUrl ? req.body.secondImageUrl : '';
-  const sizing = req.body.sizing ? req.body.sizing : [];
   const inStock = req.body.inStock ? true : false;
   const isPopular = req.body.isPopular ? true : false;
-  const productDetails = req.body.productDetails;
   const userId = req.user._id;
 
-  const product = new Product(
-    null,
-    title,
-    price,
-    imageUrl,
-    description,
-    shortDescription,
-    secondImageUrl,
-    sizing,
-    inStock,
-    isPopular,
-    productDetails,
-    userId
-  );
+  const product = new Product({
+    title: title,
+    price: price,
+    imageUrl: imageUrl,
+    description: description,
+    shortDescription: shortDescription,
+    inStock: inStock,
+    isPopular: isPopular,
+    userId: userId,
+  });
 
   product
     .save()
@@ -88,30 +82,21 @@ exports.postEditProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const description = req.body.description;
   const shortDescription = req.body.shortDescription;
-  const secondImageUrl = req.body.secondImageUrl ? req.body.secondImageUrl : '';
-  const sizing = req.body.sizing ? req.body.sizing : [];
   const inStock = req.body.inStock ? true : false;
   const isPopular = req.body.isPopular ? true : false;
-  const productDetails = req.body.productDetails;
-  const userId = req.user._id;
 
-  const product = new Product(
-    id,
-    title,
-    price,
-    imageUrl,
-    description,
-    shortDescription,
-    secondImageUrl,
-    sizing,
-    inStock,
-    isPopular,
-    productDetails,
-    userId
-  );
+  Product.findById(id)
+    .then((product) => {
+      product.title = title;
+      product.price = price;
+      product.imageUrl = imageUrl;
+      product.description = description;
+      product.shortDescription = shortDescription;
+      product.inStock = inStock;
+      product.isPopular = isPopular;
 
-  product
-    .save()
+      return product.save();
+    })
     .then((result) => {
       console.log('UPDATED PRODUCT!');
       res.redirect('/admin/products');
@@ -124,7 +109,7 @@ exports.postEditProduct = (req, res, next) => {
 exports.postDeleteProduct = (req, res, next) => {
   const productId = req.body.productId;
 
-  Product.deleteById(productId)
+  Product.findByIdAndRemove(productId)
     .then(() => {
       res.redirect('/admin/products');
     })
