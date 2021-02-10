@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const envs = require('./config');
 
 const USER_ID = envs.USER_ID;
-const MONGODB_URI = env.MONGODB_URI;
+const MONGODB_URI = envs.MONGODB_URI;
 
 const User = require('./models/user');
 
