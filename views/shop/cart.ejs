@@ -7,7 +7,7 @@
     <%- include('../includes/navigation.ejs') %>
     <!-- component -->
     <div class="flex justify-center my-6">
-        <div class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
+        <div class="flex flex-col w-full p-8 text-gray-800 bg-white rounded-md shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
         <div class="flex-1">
             <% if (products.length > 0) { %>
                 <table class="w-full text-sm lg:text-base" cellspacing="0">
@@ -27,16 +27,17 @@
                         <% products.forEach(product => { %>
                             <tr>
                                 <td class="hidden pb-4 md:table-cell">
-                                    <a href="/products/<%= product.productData.id %>">
-                                    <img src="<%= product.productData.imageUrl %>" class="w-20 rounded" alt="Thumbnail">
+                                    <a href="/products/<%= product.productId.id %>">
+                                    <img src="<%= product.productId.imageUrl %>" class="w-20 rounded" alt="Thumbnail">
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="/products/<%= product.productData.id %>">
-                                    <p class="mb-2 md:ml-4"><%= product.productData.title %></p>
+                                    <a href="/products/<%= product.productId.id %>">
+                                    <p class="mb-2 md:ml-4"><%= product.productId.title %></p>
                                     </a>
                                     <form action="/cart-delete-item" method="POST">
-                                        <input type="hidden" name="productId" value="<%= product.productData.id %>">
+                                        <input type="hidden" name="productId" value="<%= product.productId.id %>">
+                                        <input type="hidden" name="productPrice" value="<%= product.productId.price %>">
                                         <button type="submit" class="text-gray-700 md:ml-4">
                                         <small>(Remove item)</small>
                                         </button>
@@ -46,18 +47,18 @@
                                     <div class="w-20 h-10">
                                     <div class="relative flex flex-row w-full h-8">
                                     <input type="number" value="<%= product.quantity %>" 
-                                        class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"/>
+                                        class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" readonly/>
                                     </div>
                                     </div>
                                 </td>
                                 <td class="hidden text-right md:table-cell">
                                     <span class="text-sm lg:text-base font-medium">
-                                        $<%= product.productData.price %>
+                                        $<%= product.productId.price %>
                                     </span>
                                 </td>
                                 <td class="text-right">
                                     <span class="text-sm lg:text-base font-medium">
-                                    $<%= product.productData.price * product.quantity %> 
+                                    $<%= product.productId.price * product.quantity %> 
                                     </span>
                                 </td>
                                 </tr> 
@@ -101,10 +102,13 @@
                         </div>
                     </div>
                     <a href="#">
-                    <button class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-indigo-800 rounded-full shadow item-center hover:bg-indigo-700 focus:shadow-outline focus:outline-none">
-                        <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"/></svg>
-                        <span class="ml-2 mt-5px">Procceed to checkout</span>
-                    </button>
+                    <form action="/create-order" method="POST">
+                        <button type="submit" class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-indigo-500 rounded-full shadow item-center hover:bg-indigo-700 focus:shadow-outline focus:outline-none">
+                            <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"/></svg>
+                            <span class="ml-2 mt-5px">Order Now!</span>
+                        </button>
+                        <input type="hidden" name="totalPrice" value="<%= (totalPrice + totalPrice * .07).toFixed(2) %>">
+                    </form>
                     </a>
                 </div>
             </div>

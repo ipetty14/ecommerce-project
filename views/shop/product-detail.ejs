@@ -1,21 +1,72 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/product.css">
-</head>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/product.css">
+  </head>
 
-<body>
+  <body>
     <%- include('../includes/navigation.ejs') %>
 
-    <main>
-      <h1><%= product.title %> </h1>
-      <hr>
-      <div>
-        <img src="<%= product.imageUrl %>" alt="<%= product.title %> ">
-      </div>
-      <h2><%= product.price %></h2>
-      <p><%= product.description %> </p>
+      <main class="my-8">
+        <div class="container mx-auto px-6">
+          <div class="flex flex-col">
+            <div class="flex flex-col items-start lg:flex-row">
+              <div class="w-full lg:w-1/2 md:w-3/4 md:h-96 lg:h-96 p-2">
+                <img class="h-full w-full rounded-md object-contain max-w-lg" src="<%= product.imageUrl %>"
+                  alt="<%= product.title %>">
+              </div>
+              <div class="w-full lg:w-1/2 max-w-lg mt-5 md:ml-8 md:mt-0 md:w-3/4">
+                <h3 class="text-gray-700 uppercase text-lg">
+                  <%= product.title %>
+                </h3>
+                <span class="text-gray-500 mt-3">$<%= product.price %></span>
+                <hr class="my-3">
+                <span class="text-gray-500 mt-3">
+                  <%= product.shortDescription %>
+                </span>
+                <hr class="my-3">
+                <div class="mt-2">
+                  <% if (product.inStock) { %>
+                    <label class="text-gray-700 text-sm" for="count">In Stock!</label>
+                    <% } else { %>
+                      <label class="text-red-700 text-sm" for="count">Out of Stock</label>
+                      <% } %>
+                </div>
+                <form action="/add-to-cart" method="POST">
+                  <div class="flex items-center mt-6">
+                    <button type="submit"
+                      class="flex px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded <% if (product.inStock) { %>hover:bg-indigo-500<% } %> focus:outline-none focus:bg-indigo-500 <% if (!product.inStock) { %>disabled:bg-gray-400 cursor-not-allowed<% } %>" <% if (!product.inStock) { %> disabled <% } %> >
+                      <span class="mr-2">Add to Cart</span>
+                      <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                      </svg>
+                    </button>
+                    <input type="hidden" name="productId" value="<%= product._id %>" />
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="w-full max-w-lg mt-5 md:ml-8 md:mt-0 md:w-1/2">
+              <p class="text-gray-700"><%= product.description %> </p>
+            </div>
+            <div class="w-full mx-auto mt-5">
+              <div class="flex justify-center mt-4 mb-8">
+                <h1 class="font-bold text-2xl text-indigo-500">Popular Products</h1>
+              </div>
+              <% if (popularProducts.length > 0) { %>
+                  <div class="w-full flex flex-row justify-evenly items-stretch flex-wrap">
+                      <% for (let popularProduct of popularProducts) { %>
+                          <%- include('../partials/product-card.ejs', {product: popularProduct})  %> 
+                      <% } %>
+                  </div>
+              <% } else { %>
+                  <h1>No Products Found!</h1>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </main>
 
-      <%- include('../partials/add-to-cart-button.ejs', {productId: product._id}) %> 
-    </main>
-    
-    <%- include('../includes/end.ejs') %>
+      <%- include('../includes/end.ejs') %>

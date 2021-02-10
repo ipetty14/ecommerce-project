@@ -1,8 +1,106 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/product.css">
-</head>
+    </head>
 
-<body>
-    <%- include('../includes/navigation.ejs') %>
-    <%- include('../includes/end.ejs') %>
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <!-- component -->
+            <div class="flex justify-center my-6 flex-col items-center">
+                <h1 class="text-3xl font-bold mb-6 text-gray-800">Order History</h1>
+                <% if (orders.length> 0) { %>
+                <% orders.forEach(order=> { %>
+                <div class="flex flex-col w-full p-8 text-gray-800 bg-white rounded-md shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5 mb-12">
+                    <div class="flex-1">
+                                <h2 class="font-bold mb-2">Order #<%= order._id %>
+                                </h2>
+                                <table class="w-full text-sm lg:text-base" cellspacing="0">
+                                    <thead>
+                                        <tr class="h-12 uppercase">
+                                            <th class="hidden md:table-cell"></th>
+                                            <th class="text-left">Product</th>
+                                            <th class="lg:text-right text-left pl-5 lg:pl-0">
+                                                <span class="lg:hidden" title="Quantity">Qtd</span>
+                                                <span class="hidden lg:inline">Quantity</span>
+                                            </th>
+                                            <th class="hidden text-right md:table-cell">Unit price</th>
+                                            <th class="text-right">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% order.products.forEach(product=> { console.log(product) %>
+                                            <tr>
+                                                <td class="hidden pb-4 md:table-cell">
+                                                    <a href="/products/<%= product.product.id %>">
+                                                        <img src="<%= product.product.imageUrl %>" class="w-20 rounded"
+                                                            alt="Thumbnail">
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="/products/<%= product.product.id %>">
+                                                        <p class="mb-2 md:ml-4">
+                                                            <%= product.product.title %>
+                                                        </p>
+                                                    </a>
+                                                    <form action="/cart-delete-item" method="POST">
+                                                        <input type="hidden" name="productId"
+                                                            value="<%= product.product.id %>">
+                                                        <input type="hidden" name="productPrice"
+                                                            value="<%= product.product.price %>">
+                                                        <button type="submit" class="text-gray-700 md:ml-4">
+                                                            <small>(Remove item)</small>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                                <td class="justify-center md:justify-end md:flex mt-6">
+                                                    <div class="w-20 h-10">
+                                                        <div class="relative flex flex-row w-full h-8">
+                                                            <input type="number" value="<%= product.quantity %>"
+                                                                class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black"
+                                                                readonly />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="hidden text-right md:table-cell">
+                                                    <span class="text-sm lg:text-base font-medium">
+                                                        $<%= product.product.price %>
+                                                    </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span class="text-sm lg:text-base font-medium">
+                                                        $<%= product.product.price * product.quantity %>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+
+                                    </tbody>
+                                </table>
+                                <hr class="pb-1 mt-1">
+                                <div class="my-4 mt-6 -mx-2 lg:flex">
+                                    <div class="lg:px-2">
+                                        <div class="p-4">
+                                            <div class="flex justify-between border-b">
+                                                <div
+                                                    class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800">
+                                                    Order Total:
+                                                </div>
+                                                <div
+                                                    class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
+                                                    $<%= order.totalPrice.toFixed(2) %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                    </div>
+                </div>
+                <% }) %>
+                                    <% } else { %>
+                                        <h2>Cart is empty!</h2>
+                                        <% } %>
+            </div>
+
+            <%- include('../includes/end.ejs') %>

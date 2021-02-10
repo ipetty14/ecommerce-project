@@ -30,32 +30,8 @@
                 </div>
 
                 <div class="flex flex-col text-sm mb-3">
-                    <label class="font-bold">Sizing</label>
-                    <label class="mb-2">Please select the available sizing.</label>
-                    <div class="flex flex-row items-center">
-                        <input type="checkbox" name="sizing[]" value="S" <% if (editing && product.sizing.includes('S')) { %>checked<% } %>><label class="ml-2 mr-3" for="sizing[]">S</label> 
-                        <input type="checkbox" name="sizing[]" value="M" <% if (editing && product.sizing.includes('M')) { %>checked<% } %>><label class="ml-2 mr-3" for="sizing[]">M</label> 
-                        <input type="checkbox" name="sizing[]" value="L" <% if (editing && product.sizing.includes('L')) { %>checked<% } %>><label class="ml-2 mr-3" for="sizing[]">L</label> 
-                        <input type="checkbox" name="sizing[]" value="XL" <% if (editing && product.sizing.includes('XL')) { %>checked<% } %>><label class="ml-2 mr-3" for="sizing[]">XL</label> 
-                        <input type="checkbox" name="sizing[]" value="2XL" <% if (editing && product.sizing.includes('2XL')) { %>checked<% } %>><label class="ml-2 mr-3" for="sizing[]">2XL</label> 
-                        <input type="checkbox" name="sizing[]" value="3XL" <% if (editing && product.sizing.includes('3XL')) { %>checked<% } %>><label class="ml-2 mr-3" for="sizing[]">3XL</label> 
-                    </div>
-                </div>
-
-                <div class="flex flex-col text-sm mb-3">
                     <label for="imageUrl" class="font-bold mb-2">Image URL</label>
                     <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a image URL" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= product.imageUrl %><% } %>"> 
-                </div>
-
-                <div class="flex flex-col text-sm mb-3">
-                    <label for="secondImageUrl" class="font-bold mb-2">Secondary Image URL</label>
-                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a image URL" name="secondImageUrl" id="secondImageUrl" value="<% if (editing) { %><%= product.secondImageUrl %><% } %>"> 
-                </div>
-
-                <div class="text-sm flex flex-col mb-3">
-                    <label for="productDetails" class="font-bold">Product Details</label>
-                    <label for="productDetails" class="mb-2">Please end each sentence with a period. These sentences will be used as bullet points.</label>
-                    <textarea class="appearance-none w-full border border-gray-200 p-2 h-40 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg"  placeholder="Enter your product details" name="productDetails" id="productDetails"><% if (editing) { %><%= product.productDetails %><% } %></textarea>
                 </div>
 
                 <div class="text-sm flex flex-col mb-3">

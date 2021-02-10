@@ -3,21 +3,56 @@
     <link rel="stylesheet" href="/css/product.css">
 </head>
 
-<body>
+<body class="bg-gray-100">
     <%- include('../includes/navigation.ejs') %>
 
-    <main>
-        <div class="flex justify-center mt-4 mb-8">
-            <h1 class="font-bold text-3xl text-indigo-500">Popular Products</h1>
-        </div>
-        <% if (prods.length > 0) { %>
-            <div class="flex flex-row justify-evenly items-stretch flex-wrap">
-                <% for (let product of prods) { %>
-                    <%- include('../partials/product-card.ejs', {product: product})  %> 
-                <% } %>
+    <div class="min-h-screen min-w-full bg-gray-100 flex flex-col justify-center p-10">
+        <div class="relative w-full max-w-full lg:max-w-6xl xl:max-w-screen-2xl mx-auto">
+          <div class="absolute inset-0 -mr-3.5 bg-gradient-to-r from-red-100 to-indigo-500 shadow-lg transform skew-y-0 rotate-3 rounded-xl"></div>
+          <div class="relative bg-white shadow-lg rounded-xl">
+            
+            <div class="px-20 py-6">
+        
+              <!-- hero section -->
+              <div class="lg:2/6 xl:w-2/4 mt-20 lg:mt-40 lg:ml-16 text-left">
+                <div class="text-6xl font-semibold text-gray-900 leading-none">Bring your family together</div>
+                <div class="mt-6 text-xl font-light text-true-gray-500 antialiased">At Bored Games, family is everything. Find a game that will make family everything for you too.</div>
+                <a href="/products">
+                    <button class="mt-6 px-8 py-4 rounded shadow font-normal tracking-wide bg-gradient-to-b from-indigo-600 to-indigo-700 text-white outline-none focus:outline-none hover:shadow-lg hover:from-indigo-700 transition duration-200 ease-in-out">
+                      Shop now
+                    </button>
+                </a>
+              </div>
+              <div class="mt-12 lg:mt-32 lg:ml-20 text-left">
+                <bottom type="button" class="flex items-center justify-center w-12 h-12 rounded-full bg-cool-gray-100 text-gray-800 animate-bounce hover:text-gray-900 hover:bg-cool-gray-50 transition duration-300 ease-in-out cursor-pointer">
+                    <a href="#popular-products">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                        </svg>
+                    </a>
+                </bottom>
+              </div>
+    
+              <!-- /hero section -->
+    
             </div>
-        <% } else { %>
-            <h1>No Products Found!</h1>
-        <% } %>
-    </main>
+          </div>
+        </div>
+        <div class="my-52">
+            <div class="flex justify-center mt-4 mb-8">
+                <h1 class="font-bold text-3xl text-indigo-500">Popular Products</h1>
+            </div>
+            <% if (prods.length > 0) { %>
+                <div class="flex flex-row justify-evenly items-stretch flex-wrap" id="popular-products">
+                    <% for (let product of prods) { %>
+                        <%- include('../partials/product-card.ejs', {product: product})  %> 
+                    <% } %>
+                </div>
+            <% } else { %>
+                <h1>No Products Found!</h1>
+            <% } %>
+        </div>
+      </div>
 <%- include('../includes/end.ejs') %>
+
+  
