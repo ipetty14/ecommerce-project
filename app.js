@@ -3,10 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3000;
-const env = require('dotenv').config();
+const envs = require('./config');
 
-const USER_ID = env.parsed.USER_ID;
-const MONGODB_URI = env.parsed.MONGODB_URI;
+const USER_ID = envs.USER_ID;
+const MONGODB_URI = env.MONGODB_URI;
 
 const User = require('./models/user');
 
