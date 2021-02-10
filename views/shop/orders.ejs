@@ -42,15 +42,6 @@
                                                             <%= product.product.title %>
                                                         </p>
                                                     </a>
-                                                    <form action="/cart-delete-item" method="POST">
-                                                        <input type="hidden" name="productId"
-                                                            value="<%= product.product.id %>">
-                                                        <input type="hidden" name="productPrice"
-                                                            value="<%= product.product.price %>">
-                                                        <button type="submit" class="text-gray-700 md:ml-4">
-                                                            <small>(Remove item)</small>
-                                                        </button>
-                                                    </form>
                                                 </td>
                                                 <td class="justify-center md:justify-end md:flex mt-6">
                                                     <div class="w-20 h-10">
