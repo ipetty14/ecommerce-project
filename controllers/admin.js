@@ -8,6 +8,7 @@ exports.getProducts = (req, res, next) => {
         prods: products,
         pageTitle: 'Admin Products',
         path: '/admin/products',
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => {
@@ -20,6 +21,7 @@ exports.getAddProduct = (req, res, next) => {
     pageTitle: 'Add New Product',
     path: '/admin/add-product',
     editing: false,
+    isAuthenticated: req.session.isLoggedIn,
   });
 };
 
@@ -31,7 +33,7 @@ exports.postAddProduct = (req, res, next) => {
   const shortDescription = req.body.shortDescription;
   const inStock = req.body.inStock ? true : false;
   const isPopular = req.body.isPopular ? true : false;
-  const userId = req.user._id;
+  const userId = req.user;
 
   const product = new Product({
     title: title,
@@ -68,6 +70,7 @@ exports.getEditProduct = (req, res, next) => {
         editing: true,
         pageTitle: 'Edit Product',
         path: `/admin/products/edit/${id}`,
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => {

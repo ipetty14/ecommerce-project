@@ -8,7 +8,7 @@
       class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
     >
       <a
-        class="text-md font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white"
+        class="text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white"
         href="/"
       >
         Bored Games
@@ -27,15 +27,16 @@
       <ul class="flex flex-col lg:flex-row list-none mr-auto">
         <li class="nav-item">
           <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/products' ? 'active:opacity-75' : '' %>"
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 <%= path === '/products' ? 'active:opacity-75' : '' %>"
             href="/products"
           >
             Products
           </a>
         </li>
+        <% if (isAuthenticated) { %>
         <li class="nav-item">
           <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/cart' ? 'active:opacity-75' : '' %>"
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 <%= path === '/cart' ? 'active:opacity-75' : '' %>"
             href="/cart"
           >
             Cart
@@ -43,15 +44,16 @@
         </li>
         <li class="nav-item">
           <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/orders' ? 'active:opacity-75' : '' %>"
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 <%= path === '/orders' ? 'active:opacity-75' : '' %>"
             href="/orders"
           >
             Orders
           </a>
         </li>
-        <!-- <li class="nav-item">
+
+        <li class="nav-item">
           <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/admin/products' ? 'active:opacity-75' : '' %>"
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 <%= path === '/admin/products' ? 'active:opacity-75' : '' %>"
             href="/admin/products"
           >
             Admin Products
@@ -59,24 +61,44 @@
         </li>
         <li class="nav-item">
           <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/admin/add-product' ? 'active:opacity-75' : '' %>"
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 <%= path === '/admin/add-product' ? 'active:opacity-75' : '' %>"
             href="/admin/add-product"
           >
             Add Products
           </a>
-        </li> -->
+        </li>
+        <% } %>
       </ul>
     </div>
     <div class="lg:flex flex-grow items-center">
       <ul class="flex flex-col lg:flex-row list-none ml-auto">
+        <% if (!isAuthenticated) { %>
         <li class="nav-item">
           <a
-            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/login' ? 'active:opacity-75' : '' %>"
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 <%= path === '/login' ? 'active:opacity-75' : '' %>"
             href="/login"
           >
             Login
           </a>
         </li>
+        <% } else { %>
+        <li class="nav-item">
+          <p
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white"
+          >
+            <%= isAuthenticated.email %>
+          </p>
+        </li>
+        <li class="nav-item">
+          <form action="/logout" method="POST">
+            <button
+              class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 focus:outline-none <%= path === '/login' ? 'active:opacity-75' : '' %>"
+            >
+              Logout
+            </button>
+          </form>
+        </li>
+        <% } %>
       </ul>
     </div>
   </div>
