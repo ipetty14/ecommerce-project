@@ -23,7 +23,7 @@
         <span class="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
       </button>
     </div>
-    <div class="lg:flex flex-grow items-center" id="example-navbar-warning">
+    <div class="lg:flex flex-grow items-center">
       <ul class="flex flex-col lg:flex-row list-none mr-auto">
         <li class="nav-item">
           <a
@@ -49,7 +49,7 @@
             Orders
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a
             class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/admin/products' ? 'active:opacity-75' : '' %>"
             href="/admin/products"
@@ -63,6 +63,18 @@
             href="/admin/add-product"
           >
             Add Products
+          </a>
+        </li> -->
+      </ul>
+    </div>
+    <div class="lg:flex flex-grow items-center">
+      <ul class="flex flex-col lg:flex-row list-none ml-auto">
+        <li class="nav-item">
+          <a
+            class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 <%= path === '/login' ? 'active:opacity-75' : '' %>"
+            href="/login"
+          >
+            Login
           </a>
         </li>
       </ul>
