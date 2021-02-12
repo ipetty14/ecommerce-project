@@ -1,14 +1,17 @@
 const Order = require('../models/order');
+
 const User = require('../models/user');
 const envs = require('../config');
 
 const USER_ID = envs.USER_ID;
+
 
 exports.getLogin = (req, res, next) => {
   res.render('auth/login', {
     pageTitle: 'Login',
     path: '/login',
     isAuthenticated: req.session.isLoggedIn,
+
   });
 };
 
