@@ -8,6 +8,7 @@ exports.getProducts = (req, res, next) => {
         prods: products,
         pageTitle: 'Shop',
         path: '/products',
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => {
@@ -27,6 +28,7 @@ exports.getProductDetails = (req, res, next) => {
             popularProducts: popularProducts,
             pageTitle: product.title,
             path: `/products`,
+            isAuthenticated: req.session.isLoggedIn,
           });
         })
         .catch((err) => {
@@ -45,6 +47,7 @@ exports.getIndex = (req, res, next) => {
         prods: popularProducts,
         pageTitle: 'Bored Games',
         path: '/',
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => {
@@ -63,6 +66,7 @@ exports.getCart = (req, res, next) => {
         pageTitle: 'Your Cart',
         products: products,
         totalPrice: user.cart.totalPrice,
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => console.log(err));
@@ -133,6 +137,7 @@ exports.getOrders = (req, res, next) => {
         pageTitle: 'Your Orders',
         path: '/orders',
         orders: orders,
+        isAuthenticated: req.session.isLoggedIn,
       });
     })
     .catch((err) => {
@@ -144,5 +149,6 @@ exports.getCheckout = (req, res, next) => {
   res.render('shop/checkout', {
     pageTitle: 'Checkout',
     path: '/checkout',
+    isAuthenticated: req.session.isLoggedIn,
   });
 };

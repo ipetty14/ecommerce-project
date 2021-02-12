@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const PORT = process.env.PORT || 3000;
 const envs = require('./config');
 
@@ -11,6 +13,10 @@ const MONGODB_URI = envs.MONGODB_URI;
 const User = require('./models/user');
 
 const app = express();
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'shopSessions',
+});
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -22,9 +28,21 @@ const { get404 } = require('./controllers/error');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  session({
+    secret: 'my secret',
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
+);
 
 app.use((req, res, next) => {
-  User.findById(USER_ID)
+  if (!req.session.user) {
+    return next();
+  }
+
+  User.findById(req.session.user._id)
     .then((user) => {
       req.user = user;
       next();
