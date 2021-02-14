@@ -33,6 +33,7 @@
                 </div>
                 <% if (isAuthenticated) { %>
                 <form action="/add-to-cart" method="POST">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                   <div class="flex items-center mt-6">
                     <button type="submit"
                       class="flex px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded <% if (product.inStock) { %>hover:bg-indigo-500<% } %> focus:outline-none focus:bg-indigo-500 <% if (!product.inStock) { %>disabled:bg-gray-400 cursor-not-allowed<% } %>" <% if (!product.inStock) { %> disabled <% } %> >

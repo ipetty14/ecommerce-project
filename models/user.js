@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true,
   },
-  email: {
+  password: {
     type: String,
     required: true,
   },
@@ -27,6 +27,8 @@ const userSchema = new Schema({
     ],
     totalPrice: { type: Number, required: true },
   },
+  resetPasswordToken: String,
+  resetPasswordTokenExpiration: Date,
 });
 
 userSchema.methods.addToCart = function (product) {

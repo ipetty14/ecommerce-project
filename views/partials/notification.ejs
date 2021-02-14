@@ -1,0 +1,28 @@
+<% if (message.hasOwnProperty('error')) { %>
+<div
+  class="bg-white border-l-8 border-red-500 text-gray-700 p-4 right-2 bottom-2 fixed rounded-md shadow"
+  role="error"
+>
+  <p class="font-bold">
+    <span class="mr-3">&#128560;</span><%= message.error[0] %>
+  </p>
+</div>
+<% } else if (message.hasOwnProperty('info')) { %>
+<div
+  class="bg-white border-l-8 border-blue-500 text-gray-700 p-4 right-2 bottom-2 fixed rounded-md shadow"
+  role="info"
+>
+  <p class="font-bold">
+    <span class="mr-3">&#128129;</span><%= message.info[0] %>
+  </p>
+</div>
+<% } else if (message.hasOwnProperty('success')) { %>
+<div
+  class="bg-white border-l-8 border-green-500 text-gray-700 p-4 right-2 bottom-2 fixed rounded-md shadow"
+  role="success"
+>
+  <p class="font-bold">
+    <span class="mr-3">&#9989;</span><%= message.success[0] %>
+  </p>
+</div>
+<% } %>
