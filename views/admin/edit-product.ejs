@@ -9,6 +9,7 @@
 
     <main>
         <form class="card bg-white max-w-xl p-10 md:rounded-lg my-8 mx-auto" method="POST" action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <div class="title">
                 <h1 class="font-bold text-center"><%= pageTitle %> </h1>
             </div>   
@@ -16,35 +17,35 @@
             <div class="form mt-4">
                 <div class="flex flex-col text-sm mb-3">
                     <label for="title" class="font-bold mb-2">Title</label>
-                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a title" name="title" id="title" value="<% if (editing) { %><%= product.title %><% } %>"> 
+                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a title" name="title" id="title" value="<% if ((editing || hasErrors)) { %><%= product.title %><% } %>"> 
                 </div>
 
                 <div class="flex flex-col text-sm mb-3">
                     <label for="shortDescription" class="font-bold mb-2">Short Description</label>
-                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a short description" name="shortDescription" id="shortDescription" value="<% if (editing) { %><%= product.shortDescription %><% } %>"> 
+                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a short description" name="shortDescription" id="shortDescription" value="<% if ((editing || hasErrors)) { %><%= product.shortDescription %><% } %>"> 
                 </div>
 
                 <div class="flex flex-col text-sm mb-3">
                     <label for="price" class="font-bold mb-2">Price</label>
-                    <input class="appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="number" step="any" placeholder="Enter a price" name="price" id="price" value="<% if (editing) { %><%= product.price %><% } %>"> 
+                    <input class="appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="number" step="any" placeholder="Enter a price" name="price" id="price" value="<% if ((editing || hasErrors)) { %><%= product.price %><% } %>"> 
                 </div>
 
                 <div class="flex flex-col text-sm mb-3">
                     <label for="imageUrl" class="font-bold mb-2">Image URL</label>
-                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a image URL" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= product.imageUrl %><% } %>"> 
+                    <input class=" appearance-none border border-gray-200 p-2 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg" type="text" placeholder="Enter a image URL" name="imageUrl" id="imageUrl" value="<% if ((editing || hasErrors)) { %><%= product.imageUrl %><% } %>"> 
                 </div>
 
                 <div class="text-sm flex flex-col mb-3">
                     <label for="description" class="font-bold mb-2">Description</label>
-                    <textarea class="appearance-none w-full border border-gray-200 p-2 h-40 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg"  placeholder="Enter your description" name="description" id="description"><% if (editing) { %><%= product.description %><% } %></textarea>
+                    <textarea class="appearance-none w-full border border-gray-200 p-2 h-40 focus:outline-none focus:border-gray-500 focus:shadow-outline md:rounded-lg"  placeholder="Enter your description" name="description" id="description"><% if ((editing || hasErrors)) { %><%= product.description %><% } %></textarea>
                 </div>
 
                 <div class="flex flex-col text-sm mb-3">
                     <label class="font-bold mb-2">Product Meta</label>
 
                     <div class="flex flex-row items-center">
-                        <input type="checkbox" name="inStock" <% if (editing && product.inStock == true) { %>checked<% } %>><label class="ml-2 mr-3" for="inStock">In Stock</label> 
-                        <input type="checkbox" name="isPopular" <% if (editing && product.isPopular == true) { %>checked<% } %>><label class="ml-2 mr-3" for="isPopular">Popular Item?</label> 
+                        <input type="checkbox" name="inStock" <% if ((editing || hasErrors) && product.inStock == true) { %>checked<% } %>><label class="ml-2 mr-3" for="inStock">In Stock</label> 
+                        <input type="checkbox" name="isPopular" <% if ((editing || hasErrors) && product.isPopular == true) { %>checked<% } %>><label class="ml-2 mr-3" for="isPopular">Popular Item?</label> 
                     </div>
                 </div>
             </div>
@@ -56,5 +57,6 @@
                 <button type="submit" class=" w-full bg-indigo-600 shadow-lg text-white px-4 py-2 hover:bg-indigo-700 mt-8 text-center font-semibold focus:outline-none md:rounded-lg">Submit</button>
             </div>
         </form>
+        <%- include('../partials/notification.ejs', {message: message})  %>
     </main>
 <%- include('../includes/end.ejs') %>

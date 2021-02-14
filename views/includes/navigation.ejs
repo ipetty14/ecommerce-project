@@ -13,15 +13,6 @@
       >
         Bored Games
       </a>
-      <button
-        class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-        type="button"
-        onclick="toggleNavbar('example-navbar-warning')"
-      >
-        <span class="block relative w-6 h-px rounded-sm bg-white"></span>
-        <span class="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-        <span class="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-      </button>
     </div>
     <div class="lg:flex flex-grow items-center">
       <ul class="flex flex-col lg:flex-row list-none mr-auto">
@@ -81,18 +72,20 @@
             Login
           </a>
         </li>
+        <li class="nav-item">
+          <a
+            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 <%= path === '/signup' ? 'active:opacity-75' : '' %>"
+            href="/signup"
+          >
+            Signup
+          </a>
+        </li>
         <% } else { %>
         <li class="nav-item">
-          <p
-            class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white"
-          >
-            <%= isAuthenticated.email %>
-          </p>
-        </li>
-        <li class="nav-item">
           <form action="/logout" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
             <button
-              class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 focus:outline-none <%= path === '/login' ? 'active:opacity-75' : '' %>"
+              class="px-3 py-2 flex items-center text-sm font-bold leading-snug text-white hover:opacity-75 focus:outline-none <%= path === '/logout' ? 'active:opacity-75' : '' %>"
             >
               Logout
             </button>
@@ -103,9 +96,3 @@
     </div>
   </div>
 </nav>
-<script>
-  function toggleNavbar(collapseID) {
-    document.getElementById(collapseID).classList.toggle('hidden');
-    document.getElementById(collapseID).classList.toggle('flex');
-  }
-</script>
